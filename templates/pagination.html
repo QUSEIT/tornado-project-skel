@@ -1,0 +1,33 @@
+{%if bool(num)%}
+<div>
+    <ul class="pagination pagination-sm">
+      {% if page != 1 %}
+        <li>
+            <a data-page="{{page-1}}">
+            <i class="fa fa-angle-left"></i>
+            </a>
+        </li>
+      {% end %} 
+      {% for p in page_list %}
+        {% if p == '...' %}
+          <li class="disabled"><a>...</a></li>
+        {% else%}
+        <li>
+            <a {% if p == str(page) %}style="background:#eee"{% end %} data-page="{{p}}">{{p}}</a>
+        </li>
+        {% end %}
+      {% end %}
+      {% if page != page_num %}
+        <li>
+            <a data-page="{{page+1}}">
+            <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+      {% end %}
+    </ul>
+    <!--有一段js放在 backend_base.html 引入 jq 下面 -->
+</div>
+{%else%}
+<p>暂时没有数据哦</p>
+{%end%}
+        
