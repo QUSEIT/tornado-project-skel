@@ -7,7 +7,7 @@ import time, os
 import settings
 import pickle
 from datetime import datetime
-import Geohash
+#import Geohash
 import redis
 
 
@@ -16,6 +16,7 @@ def generate_access_token(user_id):
     return md5(raw_string).hexdigest()
 
 
+"""
 def generate_geohash(lng_lat):
 	#生成 Geohash
 	#5位长度：2.4km
@@ -25,6 +26,7 @@ def generate_geohash(lng_lat):
 	#9：0.00478
     lng, lat = lng_lat.split(',')
     return Geohash.encode(float(lat), float(lng), 6)
+"""
 
 
 def auth_decorator(method):

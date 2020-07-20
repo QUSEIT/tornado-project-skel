@@ -12,7 +12,7 @@ class MongoCon(object):
             try:
                 cls.__db = MongoClient(settings.DB_REPLICA_SET_HOST, settings.DB_REPLICA_SET_PORT) #MongoClient(','.join(settings.DB_REPLICA_SET))
             except Exception as e:
-                print e
+                print(e)
         return cls.__db
 
     @classmethod

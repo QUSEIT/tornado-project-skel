@@ -37,9 +37,9 @@ class Application(tornado.web.Application):
         else:
             handlers = route.get_routes()
         #全局redis连接池
-        redis_pool = redis.ConnectionPool(host=settings.REDIS_HOST,
-                                          port=settings.REDIS_PORT, db=settings.REDIS_POOL)
-        self.redis = redis.Redis(connection_pool=redis_pool)
+        redis_pool = None #redis.ConnectionPool(host=settings.REDIS_HOST,
+                          #                port=settings.REDIS_PORT, db=settings.REDIS_POOL)
+        self.redis = None #redis.Redis(connection_pool=redis_pool)
         # mongodb
         self.con = MongoCon.get_connection()
 
@@ -58,7 +58,7 @@ class Application(tornado.web.Application):
 #导入所有的handler
 #每个apps 的子项目都必须有一个handler.py
 for app_name in settings.APPS:
-    __import__('apps.%s' % app_name, globals(), locals(), ['handlers'], -1)
+    __import__('apps.%s' % app_name, globals(), locals(), ['handlers'], 0)
 
 
 

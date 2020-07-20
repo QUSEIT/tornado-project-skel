@@ -6,7 +6,8 @@ import os
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 PIC_PATH = os.path.join(ROOT, 'static/')
-API_PORT = 10011
+HOST = ''
+API_PORT = 10000
 
 #server is in mataining ?
 IS_MAINTAIN = False
@@ -25,7 +26,7 @@ DB_REPLICA_SET_PORT= 27017
 DB_REPLICA_SET_NAME = "qprs0"
 
 #redis
-REDIS_HOST = '172.30.0.89'
+REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_POOL = 0
 

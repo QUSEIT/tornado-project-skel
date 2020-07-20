@@ -8,7 +8,7 @@ try:
     import ujson as json
 except ImportError:
     import json
-import urlparse
+from urllib.parse import urlparse
 import urllib
 import math
 from tornado import gen
@@ -28,7 +28,7 @@ class BareboneHandler(tornado.web.RequestHandler):
             try:
                 request.remote_ip = request.headers["X-Forwarded-For"].split(",")[0]
             except Exception as e:
-                print e
+                print(e)
         
     @property
     def db(self):
@@ -49,6 +49,15 @@ class BareboneHandler(tornado.web.RequestHandler):
     def write_json(self, obj):
         self.set_header("Content-Type", "application/json; charset=UTF-8")
         self.write(self.make_str_id(obj))
+
+    def make_str_id(self, obj):
+        if type(obj) is dict:
+            return {k: self.make_str_id(v) for k, v in obj.items()}
+        if type(obj) is list:
+            return [self.make_str_id(i) for i in obj]
+        if type(obj) in [int, float]:
+            return obj
+        return str(obj)
 
 
     def pagination(self, num, page):
@@ -76,7 +85,7 @@ class BaseHandler(BareboneHandler):
         try:
             self.log.publish(settings.NAMESPACE, ",".join(map(str, args)))
         except ConnectionError as e:
-            print "send_log error", args, e
+            print("send_log error", args, e)
 
 class MaintainHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
